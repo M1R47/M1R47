@@ -33,13 +33,13 @@ echo
 set_Pass () {
     while true; do
         echo -en "${clsln}\r"
-        echo -en $Y"   Set new Pass: $W"
+        echo -en $Y"   Set nuevo Pass: $W"
         read  pin
         if [[ ${pin} =~ ^(q|Q)$ ]]; then
             exit 1
         else
             echo -en "${Up1}${clsln}\r"
-            echo -en $Y"   Confirm Pass: $W"
+            echo -en $Y"   Confirmar Pass: $W"
             read  tmpin
         fi
 
@@ -48,7 +48,7 @@ set_Pass () {
         elif [[ $pin = $tmpin ]]; then
             pin=$(echo $tmpin | sha256sum)
             sed -i "2 a VAL=\"$pin\"" $FILE
-            echo -en $Y"$Up1   [$R!$Y]$G Great! new Pass set.$W\r"
+            echo -en $Y"$Up1   [$R!$Y]$G Great! Nuevo Pass set.$W\r"
             sleep 1
             clear
             exit 0
