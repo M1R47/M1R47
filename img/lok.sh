@@ -1,0 +1,111 @@
+#!/system/bin/sh
+
+
+trap  "" 0 1 2 3 15 20
+# Colors and other variables
+R='\033[1;31m'
+B='\033[1;34m'
+C='\033[0;36m'
+G='\033[1;32m'
+W='\033[1;37m'
+Y='\033[1;33m'
+Up2='\u001b[3A'
+Up1='\u001b[1A'
+tmpin=1
+clsln="                                            "
+FILE=$(which login)
+
+banner () {
+clear
+for i in {1..12}; do
+    echo
+done
+echo
+echo -e $B"  ┌─────────────────────────┐ "
+echo -e $B"  │$C     TERMUX LOGIN        $B│"
+echo -e $B"  └─────────────────────────┘ "
+echo
+echo -en $Y"   [$R Q $Y]$C Exit."
+echo
+echo
+}
+
+set_Pass () {
+    while true; do
+        echo -en "${clsln}\r"
+        echo -en $Y"   Set new Pass: $W"
+        read  pin
+        if [[ ${pin} =~ ^(q|Q)$ ]]; then
+            exit 1
+        else
+            echo -en "${Up1}${clsln}\r"
+            echo -en $Y"   Confirm Pass: $W"
+            read  tmpin
+        fi
+
+        if [[ ${tmpin} =~ ^(q|Q)$ ]]; then
+            exit 1
+        elif [[ $pin = $tmpin ]]; then
+            pin=$(echo $tmpin | sha256sum)
+            sed -i "2 a VAL=\"$pin\"" $FILE
+            echo -en $Y"$Up1   [$R!$Y]$G Great! new Pass set.$W\r"
+            sleep 1
+            clear
+            exit 0
+        else
+            echo -en $Y"$Up1   [$R!$Y]$R Oops! Try again.$W\r"
+            sleep 1.5
+            echo -en "${clsln}\r"
+        fi
+    done
+}
+
+get_Pass () {
+    while true; do
+        echo -en "${clsln}\r"
+        echo -en "${clsln}\r"
+        echo -e $Y"   Enter Pass:$W \c"
+        stty echo
+        while read  -r -t 0; do read  -r; done
+        read pin
+        stty -echo
+        pin1=$(echo $pin | sha256sum)
+        if [[ ${pin1} = $VAL ]]; then
+            stty echo
+            return 0
+        elif [[ ${pin} =~ ^(q|Q)$ ]]; then
+            stty echo
+            exit 1
+        elif [[ ${pin} =~ ^(c|C)$ ]] && [[ $tmpin -ne 0 ]]; then
+            ch_Pass
+        else
+            echo -e $Y"\r$Up1   Enter Pass:$R $pin   "
+            echo -e "${clsln}\r"
+            echo -en $Y"   [$R!$Y]$R   Wrong Pass! Try again.$W\r"
+            sleep 1.5
+            echo -en "${clsln}$Up2"
+        fi
+
+    done
+}
+
+ch_Pass () {
+    banner
+    echo -e $Y"   [$R ! $Y]$C Confirm old Pass.             "
+    echo "                               "
+    tmpin=0
+    get_Pass
+    echo
+    sed -i '/VAL=/d' $FILE && set_Pass
+}
+
+[[ "$@" == "set_lock" ]] && set_Pass && exit
+
+banner
+echo -e "${clsln}$Up2"
+echo -en $Y"   [$R Q $Y]$C Exit.   $Y [$R C $Y]$C Change Pass."
+echo
+echo
+get_Pass
+clear
+exit
