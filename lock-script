@@ -33,7 +33,7 @@ echo
 set_Pass () {
     while true; do
         echo -en "${clsln}\r"
-        echo -en $Y"   Set nuevo Pass: $W"
+        echo -en $Y"    nuevo Pass: $W"
         read  pin
         if [[ ${pin} =~ ^(q|Q)$ ]]; then
             exit 1
@@ -91,7 +91,7 @@ get_Pass () {
 
 ch_Pass () {
     banner
-    echo -e $Y"   [$R ! $Y]$C Confirm old Pass.             "
+    echo -e $Y"   [$R ! $Y]$C Confirmar  Pass.             "
     echo "                               "
     tmpin=0
     get_Pass
@@ -103,7 +103,7 @@ ch_Pass () {
 
 banner
 echo -e "${clsln}$Up2"
-echo -en $Y"   [$R Q $Y]$C Exit.   $Y [$R C $Y]$C Change Pass."
+echo -en $Y"   [$R Q $Y]$C Exit.   $Y [$R C $Y]$C cambiar Pass."
 echo
 echo
 get_Pass
