@@ -64,7 +64,7 @@ get_Pass () {
     while true; do
         echo -en "${clsln}\r"
         echo -en "${clsln}\r"
-        echo -e $Y"   Enter Pass:$W \c"
+        echo -e $Y"   Incertar Pass:$W \c"
         stty echo
         while read  -r -t 0; do read  -r; done
         read pin
