@@ -1,6 +1,13 @@
 <div>
 
-# Bienvenida a M1R47 <img height = "50em" src = "https://pa1.narvii.com/6600/68788f7598534e8ef6dadb46cab6a194d340d312_hq.gif" />  
+# welcome to m1r47 <img height = "50em" src = "https://pa1.narvii.com/6600/68788f7598534e8ef6dadb46cab6a194d340d312_hq.gif" />  
+<center>
+<p> hola soy M1R47 un desarrollador independiente enfocado ha
+cia la creación de programas o 
+script para los usuarios de termux 
+</p>
+</center>
+
 ### clasificación:
   
 
