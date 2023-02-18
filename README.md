@@ -1,6 +1,6 @@
 <body>
   
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://github.com/M1R47/M1R47/blob/main/style.css">
   
   <div class="imgz">
     
