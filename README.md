@@ -18,8 +18,6 @@
 
 > [ufo](https://github.com/m1r47/ufo)
 
-> [Term-login](https://github.com/m1r47/Term-login)
-
 > [web-download](https://github.com/m1r47web-download)
 
 </p>
